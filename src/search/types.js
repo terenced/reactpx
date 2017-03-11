@@ -1,0 +1,3 @@
+export const SEARCHING = 'SEARCHING';
+export const SEARCH_COMPLETED = 'SEARCH_COMPLETED';
+export const SEARCH_FAILED = 'SEARCH_FAILED';
