@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Grid, Input} from "semantic-ui-react";
+import {Grid, Input, Loader} from "semantic-ui-react";
 import PhotosList from "./PhotosList"
 import {connect} from 'react-redux';
 
@@ -22,16 +22,18 @@ class Search extends React.Component {
       <Grid>
         <Grid.Row>
           <Input
+            size='large'
             loading={this.props.searching}
-            icon={{name: 'search', circular: true, link: true}}
+            icon={{name: 'search', circular: true}}
             placeholder='Search 500px photos...'
             value={this.props.keyword}
             onChange={this.onKeywordChange.bind(this)}/>
         </Grid.Row>
-        <Grid.Row>
-          <PhotosList
-            loading={this.props.isSearching}
-            photos={this.props.photos} />
+        <Grid.Row centered={this.props.isSearching}>
+          <Loader inline active={this.props.isSearching} />
+          {!this.props.isSearching &&
+            <PhotosList photos={this.props.photos} />
+          }
         </Grid.Row>
       </Grid>
     );
