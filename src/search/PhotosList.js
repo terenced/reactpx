@@ -1,5 +1,5 @@
 import React from "react";
-import {List, Loader} from "semantic-ui-react";
+import {Card, Loader} from "semantic-ui-react";
 import PhotoItem from "./PhotoItem";
 
 export default class PhotosList extends React.Component {
@@ -17,17 +17,17 @@ export default class PhotosList extends React.Component {
     return (
       <div>
         <Loader inline active={this.props.loading} />
-        <List
-          horizontal
-          verticalAlign="middle">
-          {this.props.photos.map((photo) => {
-            return (
-              <List.Item key={photo.id}>
-                <PhotoItem {...photo} />
-              </List.Item>
-            );
-          })}
-        </List>
+        {!this.props.loading &&
+          <Card.Group itemsPerRow={4}
+            horizontal
+            verticalAlign="middle">
+            {
+              this.props.photos.map((photo) =>
+                <PhotoItem key={photo.id} {...photo} />
+                )
+            }
+          </Card.Group>
+        }
       </div>
     );
   }

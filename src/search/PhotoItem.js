@@ -2,11 +2,18 @@ import React from "react";
 import {Card, Image} from "semantic-ui-react";
 
 export default class PhotoItem extends React.Component {
-  static propTypes = {
+  formatDescription(description) {
+    if (!description){
+      return "";
+    }
+    if (description.length > 200) {
+      return "";
+    }
+    return description;
   }
   render() {
     return (
-      <Card>
+      <Card raised>
         <Image
           alt={this.props.name}
           href={`https://www.500px.com${this.props.url}`}
@@ -16,8 +23,11 @@ export default class PhotoItem extends React.Component {
             {this.props.name}
           </Card.Header>
           <Card.Meta>
-            by {this.props.user.fullname}
+            By {this.props.user.fullname}
           </Card.Meta>
+          <Card.Description>
+            {this.formatDescription(this.props.description)}
+          </Card.Description>
         </Card.Content>
       </Card>
     );

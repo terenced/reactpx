@@ -8,18 +8,12 @@ const initialState = {
 
 export default function searchReducer(state = initialState, action) {
   switch (action.type) {
+    case actions.KEYWORD_CHANGED:
+      return {...state, keyword: action.payload};
     case actions.SEARCHING:
-      return {
-        ...state,
-        keyword: action.payload,
-        isSearching: true,
-      };
+      return {...state, isSearching: true};
     case actions.SEARCH_COMPLETED:
-      return {
-        ...state,
-        photos: action.payload,
-        isSearching: false,
-      };
+      return {...state, photos: action.payload, isSearching: false};
     default:
       return state
   }

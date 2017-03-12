@@ -1,6 +1,8 @@
 import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
-import thunk from 'redux-thunk';
 import searchReducer from "../search/reducers";
+import createSagaMiddleware from 'redux-saga'
+
+import {watchKeywordChange} from "../search/operations";
 
 export default function configureStore(initialState) {
   const rootReducer = combineReducers({
@@ -8,13 +10,17 @@ export default function configureStore(initialState) {
   });
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
       rootReducer,
       initialState,
       composeEnhancers(
-        applyMiddleware(thunk),
+        applyMiddleware(sagaMiddleware),
       )
   );
+
+  sagaMiddleware.run(watchKeywordChange)
+
 
   return store;
 }

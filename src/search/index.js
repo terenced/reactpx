@@ -49,7 +49,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onKeywordChange: (keyword) => dispatch(actions.searchPhotos(keyword)),
+    onKeywordChange: (keyword) => dispatch(actions.keywordChanged(keyword)),
   }
 }
 
