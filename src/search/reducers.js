@@ -9,15 +9,17 @@ const initialState = {
 export default function searchReducer(state = initialState, action) {
   switch (action.type) {
     case actions.SEARCHING:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         keyword: action.payload,
         isSearching: true,
-      })
+      };
     case actions.SEARCH_COMPLETED:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         photos: action.payload,
         isSearching: false,
-      })
+      };
     default:
       return state
   }

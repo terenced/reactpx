@@ -1,6 +1,5 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux';
+import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import createDebounce from 'redux-debounce'
 import searchReducer from "../search/reducers";
 
 export default function configureStore(initialState) {
@@ -8,11 +7,14 @@ export default function configureStore(initialState) {
     search: searchReducer
   });
 
-  const debounce = createDebounce({simple: 300});
-
-  return createStore(
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createStore(
       rootReducer,
       initialState,
-      applyMiddleware(thunk, debounce)
+      composeEnhancers(
+        applyMiddleware(thunk),
+      )
   );
+
+  return store;
 }
